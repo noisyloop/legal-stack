@@ -1,0 +1,20 @@
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - gosec        # security-sensitive patterns
+    - bodyclose    # HTTP response body leaks
+    - noctx        # HTTP requests without context
+    - errorlint    # errors.Is/As misuse
+    - copyloopvar
+    - misspell
+    - unconvert
+    - unparam
+    - sqlclosecheck
+    - rowserrcheck # rows.Err() must be checked after iteration
+  exclusions:
+    rules:
+      # Tests legitimately use weaker patterns (fixed creds in URLs, etc.).
+      - path: _test\.go
+        linters: [gosec, noctx]
